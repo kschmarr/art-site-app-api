@@ -1,0 +1,21 @@
+{"message":"select * from \"users\" - relation \"users\" does not exist","level":"error"}
+{"message":"select * from \"users\" - relation \"users\" does not exist","level":"error"}
+{"message":"select * from \"users\" - relation \"users\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"users\" - relation \"users\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"users\" - relation \"users\" does not exist","level":"error"}
+{"message":"select * from \"'art'\" - relation \"'art'\" does not exist","level":"error"}
+{"message":"ArtService.getAllArt(...).then is not a function","level":"error"}
+{"message":"select * from \"'art'\" - relation \"'art'\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
