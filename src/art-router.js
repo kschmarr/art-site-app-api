@@ -21,10 +21,10 @@ const serializeArt = art => ({
 });
 
 Router.route("/art").get((req, res, next) => {
-  console.log(req.app.get("db"));
+  console.log(req.app.get("db")._context.client);
   ArtService.getAllArt(req.app.get("db"))
     .then(art => {
-      console.log("different message");
+      console.log("middle message");
       res.json(art.map(serializeArt)).status(200);
     })
     .catch(next);
