@@ -4,7 +4,7 @@ const ArtService = {
   },
   getById(knex, id) {
     return knex("art")
-      .where("mealid", id)
+      .where("artid", id)
       .first();
   },
   updateArt(knex, artid, new_fields) {
@@ -13,9 +13,9 @@ const ArtService = {
       .update(new_fields)
       .returning("*");
   },
-  deleteArt(knex, mealid) {
+  deleteArt(knex, artid) {
     return knex("art")
-      .where({ mealid })
+      .where({ artid })
       .del()
       .returning("*");
   },
@@ -35,11 +35,11 @@ const ArtService = {
   getAllUsers(knex) {
     return knex.select("*").from("users");
   },
-  getOneUser(knex, userid) {
+  getOneUser(knex, token) {
     return knex
       .from("users")
       .select("*")
-      .where({ userid })
+      .where({ token })
       .first();
   },
   insertUser(knex, newUser) {
@@ -51,11 +51,11 @@ const ArtService = {
         return rows;
       });
   },
-  updateUser(knex, userid, new_user_fields) {
+  updateUser(knex, token, new_user_fields) {
     return knex("users")
-      .where({ userid })
+      .where({ token })
       .update(new_user_fields)
-      .returning("*");
+      .returning("bio");
   },
   deleteUser(knex, userid) {
     return knex("users")

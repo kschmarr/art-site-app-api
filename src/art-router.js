@@ -7,103 +7,109 @@ const Router = express.Router();
 
 const serializeUser = user => ({
   username: xss(user.username),
-  userid: xss(user.userid),
-  token: xss(user.token),
+  userid: user.userid,
   bio: xss(user.bio)
 });
 
 const serializeArt = art => ({
+  artid: art.artid,
   title: xss(art.title),
   description: xss(art.description),
   price: xss(art.price),
-  dims: xss(art.dims),
+  height: xss(art.height),
+  width: xss(art.width),
   image: xss(art.image)
 });
 
-Router.route("/art").get((req, res, next) => {
-  console.log(req.app.get("db")._context.client);
-  ArtService.getAllArt(req.app.get("db"))
-    .then(art => {
-      console.log("middle message");
-      res.json(art.map(serializeArt)).status(200);
-    })
-    .catch(next);
-  console.log("final message");
-});
-// .post(jsonParser, (req, res, next) => {
-//   for (const field of ["meal", "rotation"]) {
-//     if (!req.body[field]) {
-//       logger.error(`${field} is required`);
-//       return res.status(400).send(`'${field}' is required`);
-//     }
-//   }
+Router.route("/art")
+  .get((req, res, next) => {
+    ArtService.getAllArt(req.app.get("db"))
+      .then(art => {
+        res.json(art.map(serializeArt)).status(200);
+      })
+      .catch(next);
+  })
+  .post(jsonParser, (req, res, next) => {
+    for (const field of [
+      "title",
+      "description",
+      "price",
+      "height",
+      "width",
+      "image"
+    ]) {
+      if (!req.body[field]) {
+        logger.error(`${field} is required`);
+        return res.status(400).send(`'${field}' is required`);
+      }
+    }
 
-//   const meal = req.body;
+    const newArt = req.body;
+    const noSpaceTitle = newArt.title.split(" ").join("");
+    ArtService.insertArt(req.app.get("db"), newArt)
+      .then(newArt => {
+        res
+          .status(201)
+          .location(`/art/${noSpaceTitle}`)
+          .json(newArt[0]);
+      })
 
-//   ArtService.insertMeal(req.app.get("db"), meal)
-//     .then(meal => {
-//       res
-//         .status(201)
-//         .location(`/meals/${meal.meal}`)
-//         .json(meal[0]);
-//     })
+      .catch(next);
+  });
 
-//     .catch(next);
-// });
+Router.route("/art/:artid")
+  .all((req, res, next) => {
+    const { artid } = req.params;
+    ArtService.getOneArt(req.app.get("db"), artid)
+      .then(art => {
+        if (!art) {
+          logger.error(`art not found.`);
+          return res.status(404).json({
+            error: { message: `art Not Found` }
+          });
+        }
+        res.art = art;
+        next();
+      })
+      .catch(next);
+  })
+  .get((req, res) => {
+    res.json(serializeArt(res.art)).status(200);
+  })
+  .delete((req, res, next) => {
+    const { artid } = req.params;
 
-// Router.route("/edit-meal/:mealid")
-//   .all((req, res, next) => {
-//     const { mealid } = req.params;
-//     ArtService.getOneMeal(req.app.get("db"), mealid)
-//       .then(meal => {
-//         if (!meal) {
-//           logger.error(`Meal not found.`);
-//           return res.status(404).json({
-//             error: { message: `Meal Not Found` }
-//           });
-//         }
-//         res.meal = meal;
-//         next();
-//       })
-//       .catch(next);
-//   })
-//   .get((req, res) => {
-//     res.json(serializeArt(res.meal)).status(200);
-//   })
-//   .delete((req, res, next) => {
-//     const { mealid } = req.params;
+    ArtService.deleteArt(req.app.get("db"), artid)
 
-//     ArtService.deleteMeal(req.app.get("db"), mealid)
+      .then(art => {
+        logger.info(`Art with id ${artid} deleted.`);
+        res.status(200).json({ artid: artid });
+      })
+      .catch(next);
+  })
+  .patch(jsonParser, (req, res, next) => {
+    const { title, description, price, height, width, image } = req.body;
+    const { artid } = req.params;
 
-//       .then(meal => {
-//         logger.info(`Meal with id ${mealid} deleted.`);
-//         res.status(200).json({ mealid: mealid });
-//       })
-//       .catch(next);
-//   })
-//   .patch(jsonParser, (req, res, next) => {
-//     const { meal, rotation, date_last_eaten } = req.body;
-//     const { mealid } = req.params;
+    const artToUpdate = { title, description, price, height, width, image };
 
-//     const mealToUpdate = { meal, rotation, date_last_eaten };
+    const numberOfValues = Object.values(artToUpdate).filter(Boolean).length;
+    if (numberOfValues === 0)
+      return res.status(400).json({
+        error: {
+          message: `Request body must contain a change for either title, description, price, height, width, image`
+        }
+      });
 
-//     const numberOfValues = Object.values(mealToUpdate).filter(Boolean).length;
-//     if (numberOfValues === 0)
-//       return res.status(400).json({
-//         error: {
-//           message: `Request body must contain an change for either meal, date_last_eaten, or rotation`
-//         }
-//       });
-
-//     ArtService.updateMeal(req.app.get("db"), mealid, mealToUpdate)
-//       .then(e => {
-//         res
-//           .status(201)
-//           .location(`/meals/${mealid}`)
-//           .json(e[0]);
-//       })
-//       .catch(next);
-//   });
+    ArtService.updateArt(req.app.get("db"), artid, artToUpdate)
+      .then(art => {
+        res
+          .status(201)
+          .location(`/art/${artid}`)
+          .json(art[0]);
+      })
+      .catch(next);
+  });
 
 Router.route("/users").get((req, res, next) => {
   ArtService.getAllUsers(req.app.get("db"))
@@ -113,83 +119,49 @@ Router.route("/users").get((req, res, next) => {
 
     .catch(next);
 });
-//   .post(jsonParser, (req, res, next) => {
-//     for (const field of ["username", "token"]) {
-//       if (!req.body[field]) {
-//         logger.error(`${field} is required`);
-//         return res.status(400).send(`'${field}' is required`);
-//       }
-//     }
 
-//     const newUser = req.body;
+Router.route("/users/:token")
+  .all((req, res, next) => {
+    const { token } = req.params;
+    ArtService.getOneUser(req.app.get("db"), token)
+      .then(user => {
+        if (!user) {
+          logger.error(`user not found.`);
+          return res.status(404).json({
+            error: { message: `User Not Found` }
+          });
+        }
 
-//     ArtService.insertUser(req.app.get("db"), newUser)
-//       .then(user => {
-//         if (!user) {
-//           logger.error(`user not found.`);
-//           return res.status(404).json({
-//             error: { message: `User Not Found` }
-//           });
-//         }
-//         res
-//           .status(201)
-//           .location(`/users/${newUser.username}`)
-//           .json(user[0]);
-//       })
-//       .catch(next);
-//   });
+        res.user = user;
+        next();
+      })
+      .catch(next);
+  })
+  .get((req, res) => {
+    res.json(serializeUser(res.user));
+  })
 
-// Router.route("/users/:userid")
-//   .all((req, res, next) => {
-//     const { userid } = req.params;
-//     ArtService.getOneUser(req.app.get("db"), userid)
-//       .then(user => {
-//         if (!user) {
-//           logger.error(`user not found.`);
-//           return res.status(404).json({
-//             error: { message: `User Not Found` }
-//           });
-//         }
+  .patch(jsonParser, (req, res, next) => {
+    const { bio } = req.body;
+    const { token } = req.params;
 
-//         res.user = user;
-//         next();
-//       })
-//       .catch(next);
-//   })
-//   .get((req, res) => {
-//     res.json(serializeUser(res.user));
-//   })
-//   .delete((req, res, next) => {
-//     const { userid } = req.params;
+    const userToUpdate = { bio };
+    const numberOfValues = Object.values(userToUpdate).filter(Boolean).length;
+    if (numberOfValues === 0)
+      return res.status(400).json({
+        error: {
+          message: `Request body must contain a change for the biographical information`
+        }
+      });
 
-//     ArtService.deleteUser(req.app.get("db"), userid)
-//       .then(() => {
-//         logger.info(`User with id ${userid} deleted.`);
-//         res.status(200).json({ userid: userid });
-//       })
-//       .catch(next);
-//   })
-//   .patch(jsonParser, (req, res, next) => {
-//     const { meal_index, short_index, medium_index, long_index } = req.body;
-//     const { userid } = req.params;
-
-//     const userToUpdate = { meal_index, short_index, medium_index, long_index };
-//     const numberOfValues = Object.values(userToUpdate).filter(Boolean).length;
-//     if (numberOfValues === 0)
-//       return res.status(400).json({
-//         error: {
-//           message: `Request body must contain an change for either meal_index, short_index, medium_index, or long_index`
-//         }
-//       });
-
-//     ArtService.updateUser(req.app.get("db"), userid, userToUpdate)
-//       .then(e => {
-//         res
-//           .status(201)
-//           .location(`/users/${userid}`)
-//           .json(e[0]);
-//       })
-//       .catch(next);
-//   });
+    ArtService.updateUser(req.app.get("db"), token, userToUpdate)
+      .then(e => {
+        res
+          .status(201)
+          .location(`/users/${e.userid}`)
+          .json(e[0]);
+      })
+      .catch(next);
+  });
 
 module.exports = Router;

@@ -25,3 +25,10 @@
 {"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
 {"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
 {"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"dims is required","level":"error"}
+{"message":"delete from \"art\" where \"mealid\" = $1 returning * - column \"mealid\" does not exist","level":"error"}
+{"message":"Art with id e86010e2-d0bc-11e9-95be-3c075475a1b5 deleted.","level":"info"}
+{"message":"select * from \"art\" where \"artid\" = $1 limit $2 - invalid input syntax for type uuid: \"398hgsnv\"","level":"error"}
+{"message":"select * from \"users\" where \"userid\" = $1 limit $2 - invalid input syntax for integer: \"a3JpczpsdWNreQ==\"","level":"error"}
+{"message":"update \"users\" set \"bio\" = $1 where \"userid\" = $2 returning * - invalid input syntax for integer: \"a3JpczpsdWNreQ==\"","level":"error"}
+{"message":"user not found.","level":"error"}
