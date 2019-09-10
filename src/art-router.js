@@ -24,15 +24,15 @@ const serializeArt = art => ({
 
 Router.route("/art")
   .get((req, res, next) => {
-    console.log("cool...");
-    // ArtService.getAllArt(req.app.get("db"))
-    //   .then(art => {
-    //     res.json(art.map(serializeArt)).status(200);
-    //   })
-    //   .catch(err => {
-    //     logger.error(err);
-    //     next();
-    //   });
+    // console.log("cool...");
+    ArtService.getAllArt(req.app.get("db"))
+      .then(art => {
+        res.json(art.map(serializeArt)).status(200);
+      })
+      .catch(err => {
+        logger.error(err);
+        next();
+      });
   })
   .post(jsonParser, (req, res, next) => {
     for (const field of [
