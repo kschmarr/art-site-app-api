@@ -51,9 +51,9 @@ const ArtService = {
         return rows;
       });
   },
-  updateUser(knex, token, new_user_fields) {
+  updateUser(knex, userid, new_user_fields) {
     return knex("users")
-      .where({ token })
+      .where({ userid })
       .update(new_user_fields)
       .returning("bio");
   },

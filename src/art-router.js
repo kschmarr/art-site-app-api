@@ -15,6 +15,7 @@ const serializeArt = art => ({
   artid: art.artid,
   title: xss(art.title),
   description: xss(art.description),
+  availability: xss(art.availability),
   price: xss(art.price),
   height: xss(art.height),
   width: xss(art.width),
@@ -36,7 +37,8 @@ Router.route("/art")
       "price",
       "height",
       "width",
-      "image"
+      "image",
+      "availability"
     ]) {
       if (!req.body[field]) {
         logger.error(`${field} is required`);
@@ -88,16 +90,32 @@ Router.route("/art/:artid")
       .catch(next);
   })
   .patch(jsonParser, (req, res, next) => {
-    const { title, description, price, height, width, image } = req.body;
+    const {
+      title,
+      description,
+      price,
+      height,
+      width,
+      image,
+      availability
+    } = req.body;
     const { artid } = req.params;
 
-    const artToUpdate = { title, description, price, height, width, image };
+    const artToUpdate = {
+      title,
+      description,
+      price,
+      height,
+      width,
+      image,
+      availability
+    };
 
     const numberOfValues = Object.values(artToUpdate).filter(Boolean).length;
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
-          message: `Request body must contain a change for either title, description, price, height, width, image`
+          message: `Request body must contain a change for either title, description, price, height, width, image, availability`
         }
       });
 
@@ -120,48 +138,28 @@ Router.route("/users").get((req, res, next) => {
     .catch(next);
 });
 
-Router.route("/users/:token")
-  .all((req, res, next) => {
-    const { token } = req.params;
-    ArtService.getOneUser(req.app.get("db"), token)
-      .then(user => {
-        if (!user) {
-          logger.error(`user not found.`);
-          return res.status(404).json({
-            error: { message: `User Not Found` }
-          });
-        }
+Router.route("/users/:userid")
+.patch(jsonParser, (req, res, next) => {
+  const { bio } = req.body;
+  const { userid } = req.params;
 
-        res.user = user;
-        next();
-      })
-      .catch(next);
-  })
-  .get((req, res) => {
-    res.json(serializeUser(res.user));
-  })
+  const userToUpdate = { bio };
+  const numberOfValues = Object.values(userToUpdate).filter(Boolean).length;
+  if (numberOfValues === 0)
+    return res.status(400).json({
+      error: {
+        message: `Request body must contain a change for the biographical information`
+      }
+    });
 
-  .patch(jsonParser, (req, res, next) => {
-    const { bio } = req.body;
-    const { token } = req.params;
-
-    const userToUpdate = { bio };
-    const numberOfValues = Object.values(userToUpdate).filter(Boolean).length;
-    if (numberOfValues === 0)
-      return res.status(400).json({
-        error: {
-          message: `Request body must contain a change for the biographical information`
-        }
-      });
-
-    ArtService.updateUser(req.app.get("db"), token, userToUpdate)
-      .then(e => {
-        res
-          .status(201)
-          .location(`/users/${e.userid}`)
-          .json(e[0]);
-      })
-      .catch(next);
-  });
+  ArtService.updateUser(req.app.get("db"), userid, userToUpdate)
+    .then(e => {
+      res
+        .status(201)
+        .location(`/users/${e.userid}`)
+        .json(e[0]);
+    })
+    .catch(next);
+});
 
 module.exports = Router;

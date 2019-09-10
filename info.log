@@ -32,3 +32,20 @@
 {"message":"select * from \"users\" where \"userid\" = $1 limit $2 - invalid input syntax for integer: \"a3JpczpsdWNreQ==\"","level":"error"}
 {"message":"update \"users\" set \"bio\" = $1 where \"userid\" = $2 returning * - invalid input syntax for integer: \"a3JpczpsdWNreQ==\"","level":"error"}
 {"message":"user not found.","level":"error"}
+{"message":"select * from \"art\" - relation \"art\" does not exist","level":"error"}
+{"message":"select * from \"users\" - relation \"users\" does not exist","level":"error"}
+{"message":"Art with id 58a266e8-d1c6-11e9-855b-3c075475a1b5 deleted.","level":"info"}
+{"message":"title is required","level":"error"}
+{"message":"image is required","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"availability is required","level":"error"}
+{"message":"availability is required","level":"error"}
+{"message":"Art with id 033faf70-d348-11e9-bbf6-3c075475a1b5 deleted.","level":"info"}
+{"message":"select * from \"art\" where \"artid\" = $1 limit $2 - invalid input syntax for type uuid: \"1\"","level":"error"}
+{"message":"select * from \"art\" where \"artid\" = $1 limit $2 - invalid input syntax for type uuid: \"1\"","level":"error"}
+{"message":"select * from \"art\" where \"artid\" = $1 limit $2 - invalid input syntax for type uuid: \"1\"","level":"error"}
