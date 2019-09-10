@@ -28,7 +28,10 @@ Router.route("/art")
       .then(art => {
         res.json(art.map(serializeArt)).status(200);
       })
-      .catch(next);
+      .catch(err => {
+        logger.error(err);
+        next();
+      });
   })
   .post(jsonParser, (req, res, next) => {
     for (const field of [
@@ -56,7 +59,10 @@ Router.route("/art")
           .json(newArt[0]);
       })
 
-      .catch(next);
+      .catch(err => {
+        logger.error(err);
+        next();
+      });
   });
 
 Router.route("/art/:artid")
@@ -73,7 +79,10 @@ Router.route("/art/:artid")
         res.art = art;
         next();
       })
-      .catch(next);
+      .catch(err => {
+        logger.error(err);
+        next();
+      });
   })
   .get((req, res) => {
     res.json(serializeArt(res.art)).status(200);
@@ -87,7 +96,10 @@ Router.route("/art/:artid")
         logger.info(`Art with id ${artid} deleted.`);
         res.status(200).json({ artid: artid });
       })
-      .catch(next);
+      .catch(err => {
+        logger.error(err);
+        next();
+      });
   })
   .patch(jsonParser, (req, res, next) => {
     const {
@@ -126,7 +138,10 @@ Router.route("/art/:artid")
           .location(`/art/${artid}`)
           .json(art[0]);
       })
-      .catch(next);
+      .catch(err => {
+        logger.error(err);
+        next();
+      });
   });
 
 Router.route("/users").get((req, res, next) => {
@@ -135,11 +150,13 @@ Router.route("/users").get((req, res, next) => {
       res.status(200).json(users);
     })
 
-    .catch(next);
+    .catch(err => {
+      logger.error(err);
+      next();
+    });
 });
 
-Router.route("/users/:userid")
-.patch(jsonParser, (req, res, next) => {
+Router.route("/users/:userid").patch(jsonParser, (req, res, next) => {
   const { bio } = req.body;
   const { userid } = req.params;
 
@@ -159,7 +176,10 @@ Router.route("/users/:userid")
         .location(`/users/${e.userid}`)
         .json(e[0]);
     })
-    .catch(next);
+    .catch(err => {
+      logger.error(err);
+      next();
+    });
 });
 
 module.exports = Router;
