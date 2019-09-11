@@ -148,9 +148,8 @@ Router.route("/art/:artid")
 Router.route("/users").get((req, res, next) => {
   ArtService.getAllUsers(req.app.get("db"))
     .then(users => {
-      res.status(200).json(users);
+      res.status(200).json(users.map(serializeUser));
     })
-
     .catch(err => {
       logger.error(err);
       next();

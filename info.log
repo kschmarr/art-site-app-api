@@ -49,3 +49,19 @@
 {"message":"select * from \"art\" where \"artid\" = $1 limit $2 - invalid input syntax for type uuid: \"1\"","level":"error"}
 {"message":"select * from \"art\" where \"artid\" = $1 limit $2 - invalid input syntax for type uuid: \"1\"","level":"error"}
 {"message":"select * from \"art\" where \"artid\" = $1 limit $2 - invalid input syntax for type uuid: \"1\"","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
