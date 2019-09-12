@@ -24,7 +24,6 @@ const serializeArt = art => ({
 
 Router.route("/art")
   .get((req, res, next) => {
-    // console.log("cool...");
     ArtService.getAllArt(req.app.get("db"))
       .then(art => {
         res.json(art.map(serializeArt)).status(200);
@@ -155,7 +154,16 @@ Router.route("/users").get((req, res, next) => {
       next();
     });
 });
-
+Router.route("/users/:token").get((req, res, next) => {
+  ArtService.getOneUser(req.app.get("db"))
+    .then(user => {
+      res.status(200).json(serializeUser);
+    })
+    .catch(err => {
+      logger.error(err);
+      next();
+    });
+});
 Router.route("/users/:userid").patch(jsonParser, (req, res, next) => {
   const { bio } = req.body;
   const { userid } = req.params;
