@@ -94,7 +94,7 @@ Router.route("/art/:artid")
 
       .then(art => {
         logger.info(`Art with id ${artid} deleted.`);
-        res.status(200).json({ artid: artid });
+        res.status(200).json({ artid });
       })
       .catch(err => {
         logger.error(err);
@@ -154,8 +154,10 @@ Router.route("/users").get((req, res, next) => {
       next();
     });
 });
+
 Router.route("/users/:token").get((req, res, next) => {
-  ArtService.getOneUser(req.app.get("db"))
+  const { token } = req.params;
+  ArtService.getOneUser(req.app.get("db"), token)
     .then(user => {
       res.status(200).json(serializeUser);
     })
@@ -164,6 +166,7 @@ Router.route("/users/:token").get((req, res, next) => {
       next();
     });
 });
+
 Router.route("/users/:userid").patch(jsonParser, (req, res, next) => {
   const { bio } = req.body;
   const { userid } = req.params;
