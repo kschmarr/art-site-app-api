@@ -65,3 +65,5 @@
 {"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
 {"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
 {"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}

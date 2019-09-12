@@ -26,6 +26,7 @@ Router.route("/art")
   .get((req, res, next) => {
     ArtService.getAllArt(req.app.get("db"))
       .then(art => {
+        console.log(art);
         res.json(art.map(serializeArt)).status(200);
       })
       .catch(err => {
