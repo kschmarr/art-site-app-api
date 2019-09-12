@@ -159,7 +159,6 @@ Router.route("/users/:token").get((req, res, next) => {
   const { token } = req.params;
   ArtService.getOneUser(req.app.get("db"), token)
     .then(user => {
-      console.log(user);
       res.status(200).json(user);
     })
     .catch(err => {
