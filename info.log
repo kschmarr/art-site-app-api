@@ -67,3 +67,13 @@
 {"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
 {"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
 {"name":"error","length":166,"severity":"FATAL","code":"28000","file":"auth.c","line":"512","routine":"ClientAuthentication","level":"error"}
+{"name":"error","length":98,"severity":"ERROR","code":"22P02","file":"uuid.c","line":"137","routine":"string_to_uuid","level":"error"}
+{"message":"Cannot read property 'artid' of undefined","level":"error"}
+{"name":"error","length":98,"severity":"ERROR","code":"22P02","file":"uuid.c","line":"137","routine":"string_to_uuid","level":"error"}
+{"message":"Cannot read property 'artid' of undefined","level":"error"}
+{"name":"error","length":98,"severity":"ERROR","code":"22P02","file":"uuid.c","line":"137","routine":"string_to_uuid","level":"error"}
+{"message":"Cannot read property 'artid' of undefined","level":"error"}
+{"name":"error","length":98,"severity":"ERROR","code":"22P02","file":"uuid.c","line":"137","routine":"string_to_uuid","level":"error"}
+{"message":"Cannot read property 'artid' of undefined","level":"error"}
+{"name":"error","length":98,"severity":"ERROR","code":"22P02","file":"uuid.c","line":"137","routine":"string_to_uuid","level":"error"}
+{"message":"Cannot read property 'artid' of undefined","level":"error"}
