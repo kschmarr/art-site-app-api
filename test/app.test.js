@@ -4,14 +4,14 @@ const request = require("supertest");
 const knex = require("knex");
 const fixtures = require("./art-fixtures");
 
-describe("Dinner App", () => {
+describe("Art Site App", () => {
   it("GET / should return a message", () => {
     return request(app)
       .get("/")
       .expect(200, "Hello, Kris!");
   });
 });
-describe("Dinner App", () => {
+describe("Art Site App", () => {
   let db;
 
   before("make knex instance", () => {
